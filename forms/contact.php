@@ -1,11 +1,11 @@
-
-
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Replace with your real receiving email address
-    $receiving_email_address = 'contact@thiruhari444@gmail.com';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $receiving_email_address = 'contact@thiruhari444@gmail.com';
     $php_email_form = '../assets/vendor/php-email-form/php-email-form.php';
 
     if (file_exists($php_email_form)) {
@@ -26,8 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact->add_message($contact->from_email, 'Email');
     $contact->add_message(filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING), 'Message', 10);
 
-    echo $contact->send() ? 'OK' : 'Could not send the email.';
+    if ($contact->send()) {
+        echo 'OK';
+    } else {
+        echo 'Could not send the email.';
+    }
 } else {
-    echo 'Invalid request method.';
+    echo 'Invalid request method: ' . $_SERVER["REQUEST_METHOD"];
 }
-
+?>
