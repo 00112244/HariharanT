@@ -777,6 +777,29 @@ section,
   border: 2px solid var(--accent-color);
 }
 
+.button-container {
+  text-align: center;
+  margin-top: 20px; /* Adjust the margin to move the button lower */
+}
+.resume-button {
+  background-color: #149ddd;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
+}
+.resume-button:hover {
+  background-color: #149ddd;
+  transform: translateY(-2px);
+}
+
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
@@ -1270,6 +1293,3 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
-}
