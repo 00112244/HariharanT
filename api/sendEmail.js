@@ -1,29 +1,35 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
+  // Log the request body to check if it is being received
+  console.log('Request body:', req.body);
+
+  // Check if the request method is POST
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
+  // Destructure the body and check if all required fields are present
   const { name, email, subject, message } = req.body;
 
   if (!name || !email || !subject || !message) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  // Configure the email transporter
+  // Set up the email transporter
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // Use your email provider (e.g., Gmail, Outlook, etc.)
+    service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER, // Add this as an environment variable in Vercel
-      pass: process.env.EMAIL_PASS, // Add this as an environment variable in Vercel
+      user: process.env.EMAIL_USER,  // Set up environment variable in Vercel
+      pass: process.env.EMAIL_PASS,  // Set up environment variable in Vercel
     },
   });
 
   try {
+    // Send the email
     await transporter.sendMail({
       from: `${name} <${email}>`,
-      to: process.env.RECIPIENT_EMAIL, // Add this as an environment variable in Vercel
+      to: process.env.RECIPIENT_EMAIL,  // Set up environment variable in Vercel
       subject: subject,
       text: message,
     });
